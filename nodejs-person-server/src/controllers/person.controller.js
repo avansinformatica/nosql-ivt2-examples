@@ -37,7 +37,9 @@ module.exports = {
     getAll(req, res, next) {
 
         Person.find()
-            .then(persons => res.status(200).json(persons).end())
+            .then(persons => res.status(200).json({
+                results: persons
+            }).end())
             .catch(error => next(new ApiError(error, 500)))
        
     },

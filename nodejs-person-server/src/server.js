@@ -26,7 +26,8 @@ let options = {
 			version: '1.0.0',
 			description: description
 		},
-		host: process.env.ALLOW_ORIGIN || 'node-persons-server.herokuapp.com',
+		// When running on a cloud server, the client needs access to the server via ALLOW_ORIGIN
+		host: process.env.ALLOW_ORIGIN || 'avans-angular-heroku.herokuapp.com',
 		produces: [
 			"application/json"
 		],
@@ -61,7 +62,7 @@ app.use(morgan('dev'))
 
 // Add CORS headers
 app.use(function (req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.setHeader('Access-Control-Allow-Origin', options.swaggerDefinition.host); // 'http://localhost:3000');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 	res.setHeader('Access-Control-Allow-Credentials', true);
