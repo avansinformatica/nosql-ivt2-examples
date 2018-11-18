@@ -60,6 +60,7 @@ app.use(bodyParser.json({
 app.use(morgan('dev'))
 
 // Add CORS headers
+logger.info(`Setting process.env.ALLOW_ORIGIN to '${process.env.ALLOW_ORIGIN}'`);
 app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN); // 'http://localhost:3000');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -105,21 +106,10 @@ app.use((err, req, res, next) => {
 //
 function shutdown() {
 	logger.info('shutdown started')
-		app.stop()
-		// 	.then(() => {
-			// pool.end((err) => {
-			// 	if (err) {
-			// 		logger.info('Error releasing connection in the database pool: ' + err.toString())
-			// 		process.exit()
-			// 	} else {
-			// 		logger.info('All connections in the pool have ended')
-			// 		process.exit()
-			// 	}
-			// })
+		// app.stop()
+		// .then(() => {
+		// 	logger.info('process is stopping')
 		// })
-		.then(() => {
-			logger.info('process is stopping')
-		})
 }
 process.on('SIGTERM', shutdown)
 process.on('SIGINT', shutdown)

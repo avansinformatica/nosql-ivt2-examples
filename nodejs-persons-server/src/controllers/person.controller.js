@@ -36,9 +36,20 @@ module.exports = {
      */
     getAll(req, res, next) {
 
-        Person.find()
-            .then(persons => res.status(200).json({ results: persons }).end())
-            .catch(error => next(new ApiError(error, 500)))
+        const offset = parseInt(req.query.offset) || 0;
+        const amount = parseInt(req.query.amount) || 10000;
+
+        logger.debug(`offset = ${offset} amount = ${amount}`)
+
+        Person
+            .find()
+            .skip(offset)
+            .limit(amount)
+            .sort()
+            .then(persons => {
+                res.status(200).json({ results: persons }).end()
+            })
+            .catch(error => next(new ApiError(error.errmsg || error, 500)))
        
     },
 
