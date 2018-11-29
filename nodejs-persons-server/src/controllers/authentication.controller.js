@@ -94,6 +94,9 @@ module.exports = {
 
         User.findOne({ email: req.body.email })
             .then(user => {
+                if(!user) {
+                    return next(new ApiError('user not found', 401))
+                }
                 logger.info('Found user: ' + user.name)
                 bcrypt.compare(req.body.password, user.password, (err, passwordsMatch) => {
                     if (err) {
@@ -113,6 +116,10 @@ module.exports = {
                     const userinfo = new UserInfo(user.name, user.email, auth.encodeToken(payload))
                     res.status(200).json(userinfo).end()
                 })
+            })
+            .catch(error => {
+                logger.info('In catch: error = ' + error)
+                next(new ApiError(error, 401))
             })
     },
 

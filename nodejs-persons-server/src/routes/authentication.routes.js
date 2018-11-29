@@ -52,7 +52,7 @@ const { check, validationResult } = require('express-validator/check');
 routes.post(
 	'/login', 
 	[
-		check('username').isEmail(),
+		check('email').isEmail(),
 		check('password').isLength({ min: 5 })
 	], 
 	AuthController.login

@@ -11,22 +11,29 @@ const logger = require('../config/config').logger
 module.exports = {
 
     create(req, res, next) {
+        logger.debug('req.body = ', req.body)
 
-        logger.debug('req.user = ', req.user)
         try {
-            assert(req.user && req.user.id, 'User ID is missing!')
-            assert(typeof (req.body) === 'object', 'request body must have an object containing naam and adres.')
-            assert(typeof (req.body.naam) === 'string', 'naam must be a string.')
-            assert(typeof (req.body.adres) === 'string', 'adres must be a string.')
-            assert(typeof (req.body.lat) === 'string', 'lat must be a string.')
-            assert(typeof (req.body.long) === 'string', 'long must be a string.')
+            // logger.debug('req.user = ', req.user)
+            // assert(req.user && req.user.id, 'User ID is missing!')
+            assert(typeof (req.body) === 'object', 'request body must have an object containing person properties.')
+            assert(typeof (req.body.name) === 'object', 'name must be an object.')
+            assert(typeof (req.body.name.first) === 'string', 'name.first must be a string.')
+            assert(typeof (req.body.name.last) === 'string', 'name.first must be a string.')
+            assert(typeof (req.body.gender) === 'string', 'gender must be a string.')
+            assert(typeof (req.body.email) === 'string', 'email must be a string.')
+            assert(typeof (req.body.nat) === 'string', 'nat must be a string.')
         } catch (ex) {
             const error = new ApiError(ex.toString(), 500)
             next(error)
             return
         }
 
-        next(new ApiError('Not implemented yet', 404))
+        Person.create(req.body)
+            .then(user => {
+                res.status(200).json({ results: user }).end()
+            })
+            .catch(error => next(new ApiError(error.errmsg || error, 500)))
 
     },
 
@@ -42,7 +49,7 @@ module.exports = {
         logger.debug(`offset = ${offset} amount = ${amount}`)
 
         Person
-            .find()
+            .find({})
             .skip(offset)
             .limit(amount)
             .sort()

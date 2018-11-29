@@ -1,8 +1,11 @@
 'use strict';
 
+process.env.NODE_ENV === undefined? process.env.NODE_ENV = 'development' : null
+
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const compression = require('compression')
 const user_routes = require('./routes/user.routes')
 const authenticationroutes = require('./routes/authentication.routes')
 const personroutes = require('./routes/person.routes')
@@ -17,6 +20,10 @@ const httpSchemes = process.env.NODE_ENV === 'production' ? ['https'] : ['http']
 const description = '<p>This server allows users to register themselves and to get a list of information..</p>'
 
 let app = express()
+
+// https://expressjs.com/en/advanced/best-practice-performance.html
+app.use(compression())
+
 const expressSwagger = require('express-swagger-generator')(app);
 
 let options = {
@@ -78,13 +85,14 @@ app.use('/api', authenticationroutes)
 
 // GET routes are UNPROTECTED
 app.use('/api', person_open_routes)
+// Move this to PROTECTED once we can user JWT on clientside.
+app.use('/api', personroutes)
 
 // JWT TOKEN VALIDATION for authentication
 app.use('/api', AuthController.validateToken);
 
 // PROTECTED endpoints
 app.use('/api', user_routes)
-app.use('/api', personroutes)
 
 // Postprocessing; catch all non-existing endpoint requests
 app.use('*', function (req, res, next) {
@@ -106,10 +114,7 @@ app.use((err, req, res, next) => {
 //
 function shutdown() {
 	logger.info('shutdown started')
-		// app.stop()
-		// .then(() => {
-		// 	logger.info('process is stopping')
-		// })
+	setTimeout(() => process.exit(0), 500);
 }
 process.on('SIGTERM', shutdown)
 process.on('SIGINT', shutdown)
@@ -117,6 +122,7 @@ process.on('SIGINT', shutdown)
 // Start listening for incoming requests.
 app.listen(port, () => {
 	logger.info('Server running on port ' + port)
+	logger.info(`Running server in ${process.env.NODE_ENV} mode`)
 	logger.info('API documentation is available at ./api-docs/')
 })
 
