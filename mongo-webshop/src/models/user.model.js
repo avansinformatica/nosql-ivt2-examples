@@ -11,7 +11,8 @@ const UserSchema = new Schema({
     // a list of products this user bought is kept
     bought: [{
         type: Schema.Types.ObjectId,
-        ref: 'product'
+        ref: 'product',
+        default: []
     }]
 });
 
@@ -22,7 +23,7 @@ const UserSchema = new Schema({
 UserSchema.pre('remove', function(next) {
     // include the product model here to avoid cyclic inclusion
     const Product = mongoose.model('product');
-    
+
     // don't iterate here! we want to use mongo operators!
     // this makes sure the code executes inside mongo
     Product.updateMany({}, {$pull: {'reviews': {'user': this._id}}})

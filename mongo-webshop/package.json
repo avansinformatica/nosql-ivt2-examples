@@ -2,12 +2,13 @@
   "name": "webshop",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "nodemon --exec \"mocha -R min --exit\""
+    "start": "nodemon server.js",
+    "test": "mocha --exit **/*spec.js"
   },
   "repository": {
     "type": "git",
@@ -16,8 +17,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mocha": "^5.2.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "mongoose": "^5.3.9",
     "nodemon": "^1.18.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^5.2.0"
   }
 }

@@ -19,7 +19,10 @@ const ProductSchema = new Schema({
             message: 'A price needs to be positive.'
         }
     },
-    reviews: [ReviewSchema],
+    reviews: {
+        type: [ReviewSchema],
+        default: []
+    }
 });
 
 // the rating of the product is a virtual type
