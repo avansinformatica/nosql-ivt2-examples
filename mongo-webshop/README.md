@@ -1,5 +1,18 @@
-# MongoDB / Mongoose webshop database
+# MongoDB / Mongoose webshop backend
 
-An example of a database for a webshop with MongoDB and Mongoose. 
+An example of a backend for a webshop with MongoDB and Mongoose. 
 
-Currently it only supports some testing. Start the mongo database server and use `npm test` in a command prompt to run the tests.
+### Installing
+
+Run `npm install` in the root directory.
+
+### Running the app
+
+The backend can be started with `npm start`. It will start listening and serve your requests.
+
+### Running the tests
+
+To run all tests use `npm test`. There are three kinds of tests:
+- unit tests on the schemas
+- integration tests on the endpoints
+- system tests by walking through a 'user journey'
