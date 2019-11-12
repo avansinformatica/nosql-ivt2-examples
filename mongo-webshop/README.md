@@ -1,6 +1,6 @@
 # MongoDB / Mongoose webshop backend
 
-An example of a backend for a webshop with MongoDB and Mongoose. 
+An example of a backend for a webshop with MongoDB and Mongoose. Use this example as inspiration and reference. Note however that more tests should be written to fully cover the backend!
 
 ### Installing
 
