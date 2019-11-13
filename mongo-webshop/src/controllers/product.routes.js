@@ -7,11 +7,7 @@ const Product = require('../models/product.model')
 
 // create a new product
 router.post('/', async function(req, res) {
-    const product = new Product({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price
-    })
+    const product = new Product(req.body)
 
     try {
         await product.save()
