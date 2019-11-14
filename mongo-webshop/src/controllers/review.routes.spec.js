@@ -86,6 +86,6 @@ describe('review endpoints', function() {
     })
 
     describe('system tests', function() {
-        it('should create a review and retrieve the review in the product')
+        // there is currently not a system test that tests only on review endpoints...
     })
 })
