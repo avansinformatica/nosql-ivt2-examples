@@ -4,10 +4,7 @@ const mongoose = require('mongoose')
 before(function(done) {
     mongoose.connect('mongodb://localhost:27017/webshoptest', {useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => done())
-    .catch(err => {
-        console.log('MongoDB connection failed')
-        console.log(err)
-    })
+    .catch(err => done(err))
 })
 
 // drop both collections before each test
