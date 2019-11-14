@@ -16,8 +16,6 @@ describe('product model', function() {
         }).to.throw
     })
 
-    // ...
-
     it('should reject a missing price', async function() {
         const testProduct = {
             name: 'Camera X120',

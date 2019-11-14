@@ -17,7 +17,7 @@ const UserSchema = new Schema({
 });
 
 // when a user is deleted all their reviews need to be deleted
-// note: use an anonymous function and not a lambda here!
+// note: use an anonymous function and not a fat arrow function here!
 // otherwise 'this' does not refer to the correct object
 // user 'next' to indicate that mongoose can go to the next middleware
 UserSchema.pre('remove', function(next) {

@@ -1,7 +1,7 @@
 const chai = require('chai')
 const expect = chai.expect
 
-const requester = require('./requester')
+const requester = require('../requester.spec')
 
 
 describe('user journeys', function() {

@@ -10,7 +10,7 @@ router.post('/', async function(req, res) {
         return
     }
 
-    const user = new User({name: req.body.name})
+    const user = new User(req.body)
     
     try {
         // save user
