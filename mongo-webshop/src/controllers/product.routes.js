@@ -16,7 +16,7 @@ router.post('/', async function(req, res) {
         return
     }
 
-    res.status(200).send({id: product._id})
+    res.status(200).send({id: product.id})
 })
 
 // get all products

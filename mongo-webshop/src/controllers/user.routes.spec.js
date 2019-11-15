@@ -55,7 +55,7 @@ describe('user endpoints', function() {
     
             await testUser.save()
     
-            const res = await requester.get(`/user/${testUser._id}`)
+            const res = await requester.get(`/user/${testUser.id}`)
     
             expect(res).to.have.status(200)
             expect(res.body).to.have.property('name', testUser.name)
@@ -69,7 +69,7 @@ describe('user endpoints', function() {
     
             await testUser.save()
     
-            const res = await requester.delete(`/user/${testUser._id}`)
+            const res = await requester.delete(`/user/${testUser.id}`)
     
             expect(res).to.have.status(200)
     
@@ -103,7 +103,7 @@ describe('user endpoints', function() {
             for (let user of res3.body) {
                 let referenceUser
 
-                if (user._id == testUserA.id) {
+                if (user.id == testUserA.id) {
                     referenceUser = testUserA
                 } else if (user._id == testUserB.id) {
                     referenceUser = testUserB
@@ -111,7 +111,7 @@ describe('user endpoints', function() {
                     throw new Error("User id is invalid")
                 }
 
-                expect(user._id).to.equal(referenceUser.id)
+                expect(user.id).to.equal(referenceUser.id)
                 expect(user.name).to.equal(referenceUser.name)
                 expect(user.bought).to.be.empty
             }

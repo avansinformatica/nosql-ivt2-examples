@@ -5,20 +5,14 @@ const User = require('../models/user.model')
 
 // create a user on a post request
 router.post('/', async function(req, res) {
-    if (!req.body.name) {
-        res.status(400).end()
-        return
-    }
-
-    const user = new User(req.body)
-    
     try {
         // save user
+        const user = new User(req.body)
         await user.save()
     
         // reply with success
-        res.status(200).send({id: user._id})
-    } catch {
+        res.status(200).send({id: user.id})
+    } catch (err) {
         res.status(400).end()
     }
 })
