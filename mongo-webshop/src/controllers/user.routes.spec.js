@@ -103,7 +103,7 @@ describe('user endpoints', function() {
             for (let user of res3.body) {
                 let referenceUser
 
-                if (user.id == testUserA.id) {
+                if (user._id == testUserA.id) {
                     referenceUser = testUserA
                 } else if (user._id == testUserB.id) {
                     referenceUser = testUserB
@@ -111,7 +111,7 @@ describe('user endpoints', function() {
                     throw new Error("User id is invalid")
                 }
 
-                expect(user.id).to.equal(referenceUser.id)
+                expect(user._id).to.equal(referenceUser.id)
                 expect(user.name).to.equal(referenceUser.name)
                 expect(user.bought).to.be.empty
             }
