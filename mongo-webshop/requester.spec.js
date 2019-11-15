@@ -9,4 +9,10 @@ const app = require('./src/app')
 // export an object that receives test requests
 // chai calls 'listen' on the app object
 // keepOpen makes sure the app is not closed after a test
-module.exports = chai.request(app).keepOpen()
+let requester = chai.request(app).keepOpen()
+module.exports = requester
+
+// close the app after all tests
+after(function() {
+    requester.close()
+})
