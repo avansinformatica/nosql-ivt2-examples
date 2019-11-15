@@ -4,7 +4,7 @@ const Product = require('./product.model')
 
 
 describe('product model', function() {
-    it('should reject a negative price', async function() {
+    it('should reject a negative price', function() {
         const testProduct = {
             name: 'Camera X120',
             description: 'A cool camera',
@@ -16,7 +16,7 @@ describe('product model', function() {
         }).to.throw
     })
 
-    it('should reject a missing price', async function() {
+    it('should reject a missing price', function() {
         const testProduct = {
             name: 'Camera X120',
             description: 'A cool camera'

@@ -29,10 +29,9 @@ const ProductSchema = new Schema({
 // note: use an anonymous function and not a lambda here!
 // otherwise 'this' does not refer to the correct object
 ProductSchema.virtual('rating').get(function () {
-    // if there are no reviews the rating is -1: meaning
-    // that a rating is not available
+    // if there are no reviews we give back a message
     if(this.reviews.length === 0) {
-        return -1;
+        return "no rating";
     } else {
         // computes the average rating
         let sum = 0;
