@@ -12,17 +12,15 @@ describe('review endpoints', function() {
         let testProduct
     
         beforeEach(async function() {
-            testUser = {name: 'Joe'}
-            const savedUser = await new User(testUser).save()
-            testUser.id = savedUser._id
+            testUser = await new User({
+                name: 'Joe'
+            }).save()
     
-            testProduct = {
+            testProduct = await new Product({
                 name: 'Camera X120',
                 description: 'A cool camera',
                 price: 259
-            }
-            const savedProduct = await new Product(testProduct).save()
-            testProduct.id = savedProduct._id
+            }).save()
         })
     
         it('(POST /review) should create a new review', async function() {
@@ -31,7 +29,7 @@ describe('review endpoints', function() {
                 text: 'Pretty average camera',
                 user: testUser.name
             }
-    
+
             const res = await requester.post(`/product/${testProduct.id}/review`).send(testReview)
     
             expect(res).to.have.status(200)
