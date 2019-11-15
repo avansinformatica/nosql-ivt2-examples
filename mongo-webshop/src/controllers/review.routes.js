@@ -21,7 +21,7 @@ router.post('/product/:id/review', async function(req, res) {
     }
 
     try {
-        const updateResult = await Product.updateOne({_id: req.params.id}, {
+        await Product.updateOne({_id: req.params.id}, {
             $push: {
                 reviews: review
             }
