@@ -13,6 +13,5 @@ app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/', reviewRoutes)
 
-
 // export the app object for use elsewhere
 module.exports = app

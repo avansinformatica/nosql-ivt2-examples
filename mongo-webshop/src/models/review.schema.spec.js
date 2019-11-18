@@ -1,4 +1,8 @@
-const expect = require('chai').expect
+const chai = require('chai')
+const expect = chai.expect
+
+var chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
 
 const User = require('./user.model')
 const Product = require('./product.model')
@@ -16,7 +20,7 @@ describe('review schema', function() {
         user['id'] = savedUser._id
     })
 
-    it('should reject a rating of 3.5', function() {
+    it('should reject a rating of 3.5', async function() {
         const testProduct = {
             name: 'Camera X120',
             description: 'A cool camera',
@@ -30,9 +34,7 @@ describe('review schema', function() {
             ]
         }
 
-        expect(async () => {
-            await new Product(testProduct).save()
-        }).to.throw
+        await expect(new Product(testProduct).save()).to.be.rejectedWith(Error)
     })
 
     it('should compute an average rating of a product', async function() {

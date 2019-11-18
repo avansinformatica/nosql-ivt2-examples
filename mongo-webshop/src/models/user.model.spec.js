@@ -1,14 +1,16 @@
-const expect = require('chai').expect
+const chai = require('chai')
+const expect = chai.expect
+
+var chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
 
 const User = require('./user.model')
 
 describe('user model', function() {
-    it('should reject a missing user name', function() {
+    it('should reject a missing user name', async function() {
         const user = new User({})
 
-        expect(async () => {
-            user.save()
-        }).to.throw
+        await expect(user.save()).to.be.rejectedWith(Error)
     })
 
     it('should create an empty bought list by default', async function() {

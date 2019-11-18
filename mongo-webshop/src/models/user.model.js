@@ -19,7 +19,7 @@ const UserSchema = new Schema({
 // when a user is deleted all their reviews need to be deleted
 // note: use an anonymous function and not a fat arrow function here!
 // otherwise 'this' does not refer to the correct object
-// user 'next' to indicate that mongoose can go to the next middleware
+// use 'next' to indicate that mongoose can go to the next middleware
 UserSchema.pre('remove', function(next) {
     // include the product model here to avoid cyclic inclusion
     const Product = mongoose.model('product');
