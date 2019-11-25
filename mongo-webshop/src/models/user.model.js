@@ -5,7 +5,8 @@ const UserSchema = new Schema({
     // a user needs to have a name
     name: {
         type: String,
-        required: [true, 'A user needs to have a name.']
+        required: [true, 'A user needs to have a name.'],
+        unique: [true, 'A user needs to have a unique name']
     },
 
     // a list of products this user bought is kept

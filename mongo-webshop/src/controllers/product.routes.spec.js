@@ -25,6 +25,29 @@ describe('product endpoints', function() {
             expect(product).to.have.property('price', testProduct.price)
             expect(product).to.have.property('reviews').and.to.be.empty
         })
+
+        it('(POST /product) should create a product with a promise chain', function() {
+            const testProduct = {
+                name: 'Camera X120',
+                description: 'A cool camera',
+                price: 259
+            }
+
+            return requester
+                .post('/product')
+                .send(testProduct)
+                .then(res => {
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.have.property('id')
+                    return Product.findOne({name: testProduct.name})
+                })
+                .then(product => {
+                    expect(product).to.have.property('name', testProduct.name)
+                    expect(product).to.have.property('description', testProduct.description)
+                    expect(product).to.have.property('price', testProduct.price)
+                    expect(product).to.have.property('reviews').and.to.be.empty
+                })
+        })
     
         it('(POST /product) should not create a product with missing price', async function() {
             const testProduct = {

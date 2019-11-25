@@ -6,17 +6,27 @@ const Product = require('../models/product.model')
 
 
 // create a new product
-router.post('/', async function(req, res) {
+// router.post('/', async function(req, res) {
+//     const product = new Product(req.body)
+
+//     try {
+//         await product.save()
+//         res.status(200).send({id: product.id})
+//     } catch {
+//         res.status(400).end()
+//     }
+// })
+
+router.post('/', function(req, res) {
     const product = new Product(req.body)
 
-    try {
-        await product.save()
-    } catch {
-        res.status(400).end()
-        return
-    }
-
-    res.status(200).send({id: product.id})
+    product.save()
+        .then(() => {
+            res.status(200).send({id: product.id})
+        })
+        .catch(() => {
+            res.status(400).send()
+        })
 })
 
 // get all products

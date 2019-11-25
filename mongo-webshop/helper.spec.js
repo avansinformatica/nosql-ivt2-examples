@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
 
+const User = require('./src/models/user.model')
+const Product = require('./src/models/product.model')
+
 // open a connection to the test database (don't use production database!)
 before(function(done) {
     mongoose.connect('mongodb://localhost:27017/webshoptest', {useNewUrlParser: true, useUnifiedTopology: true })
@@ -8,12 +11,16 @@ before(function(done) {
 })
 
 // drop both collections before each test
-beforeEach((done) => {
-    const {users, products} = mongoose.connection.collections;
+beforeEach(async () => {
+    // dropping a collection removes indexes :'(
 
-    users.drop(() => {
-        products.drop(() => {
-            done();
-        })
-    })
+    // const {users, products} = mongoose.connection.collections;
+
+    // users.drop(() => {
+    //     products.drop(() => {
+    //         done();
+    //     })
+    // })
+
+    await Promise.all([User.deleteMany(), Product.deleteMany()])
 });
