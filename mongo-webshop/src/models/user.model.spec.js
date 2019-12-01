@@ -18,4 +18,14 @@ describe('user model', function() {
 
         expect(user).to.have.property('bought').and.to.be.empty
     })
+
+    it('should not create duplicate user names', async function() {
+        await new User({name: 'Joe'}).save()
+        const user = new User({name: 'Joe'})
+        
+        await expect(user.save()).to.be.rejectedWith(Error)
+
+        let count = await User.find().countDocuments()
+        expect(count).to.equal(1)
+    })
 })

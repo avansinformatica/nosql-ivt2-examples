@@ -7,8 +7,11 @@ const User = require('../models/user.model')
 router.post('/', async function(req, res) {
     try {
         // save user
-        const user = new User(req.body)
-        await user.save()
+
+        // const user = new User(req.body)
+        // await user.save()
+
+        const user = await User.create(req.body)
     
         // reply with success
         res.status(200).send({id: user.id})
