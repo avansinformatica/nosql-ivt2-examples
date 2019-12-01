@@ -1,0 +1,37 @@
+{
+  "gender": "male",
+  "name": { "title": "Mr", "first": "Calvin", "last": "Green" },
+  "location": {
+    "street": { "number": 2252, "name": "Dame Street" },
+    "city": "Oranmore",
+    "state": "Cork City",
+    "country": "Ireland",
+    "postcode": 51567,
+    "coordinates": { "latitude": "23.4770", "longitude": "-177.0886" },
+    "timezone": {
+      "offset": "-5:00",
+      "description": "Eastern Time (US & Canada), Bogota, Lima"
+    }
+  },
+  "email": "calvin.green@example.com",
+  "login": {
+    "uuid": "25332b27-feed-4393-869d-10958ba57b71",
+    "username": "purpleswan168",
+    "password": "hedgehog",
+    "salt": "9441oKpF",
+    "md5": "6b9780eb0af816303fdddb02a9e134f1",
+    "sha1": "f0b7f9ad123f5cc917e92543160790dff83d97f2",
+    "sha256": "0abd85ecad9563b696f28f8448999152b7d2be50a81395f28083bdc18d2ad16e"
+  },
+  "dob": { "date": "1947-07-19T17:27:08.930Z", "age": 72 },
+  "registered": { "date": "2013-01-25T22:04:02.773Z", "age": 6 },
+  "phone": "041-763-4741",
+  "cell": "081-587-1062",
+  "id": { "name": "PPS", "value": "0288421T" },
+  "picture": {
+    "large": "https://randomuser.me/api/portraits/men/34.jpg",
+    "medium": "https://randomuser.me/api/portraits/med/men/34.jpg",
+    "thumbnail": "https://randomuser.me/api/portraits/thumb/men/34.jpg"
+  },
+  "nat": "IE"
+}
