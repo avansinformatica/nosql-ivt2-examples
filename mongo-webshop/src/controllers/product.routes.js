@@ -6,28 +6,29 @@ const Product = require('../models/product.model')() // note we need to call the
 
 
 // create a new product
-// router.post('/', async function(req, res) {
-//     const product = new Product(req.body)
-
-//     try {
-//         await product.save()
-//         res.status(200).send({id: product.id})
-//     } catch {
-//         res.status(400).end()
-//     }
-// })
-
-router.post('/', function(req, res) {
+router.post('/', async function(req, res) {
     const product = new Product(req.body)
 
-    product.save()
-        .then(() => {
-            res.status(200).send({id: product.id})
-        })
-        .catch(() => {
-            res.status(400).send()
-        })
+    try {
+        await product.save()
+        res.status(200).send({id: product.id})
+    } catch {
+        res.status(400).end()
+    }
 })
+
+// this is equivalent to above, but in promise style
+// router.post('/', function(req, res) {
+//     const product = new Product(req.body)
+
+//     product.save()
+//         .then(() => {
+//             res.status(200).send({id: product.id})
+//         })
+//         .catch(() => {
+//             res.status(400).send()
+//         })
+// })
 
 // get all products
 router.get('/', async function(req, res) {
