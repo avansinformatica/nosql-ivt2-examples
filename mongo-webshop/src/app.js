@@ -1,9 +1,8 @@
 const express = require('express')
 const app = express()
 
-// parse body of incoming request
-const bodyParser = require('body-parser')
-app.use(bodyParser.json())
+// parse json body of incoming request
+app.use(express.json())
 
 const userRoutes = require('./controllers/user.routes')
 const productRoutes = require('./controllers/product.routes')

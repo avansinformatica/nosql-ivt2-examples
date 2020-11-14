@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha --exit **/*spec.js"
+    "test": "mocha --exit \"./**/*spec.js\""
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "chai-as-promised": "^7.1.1",
     "express": "^4.17.1",
-    "mongoose": "^5.3.9",
+    "mongoose": "^5.10.14",
     "nodemon": "^1.18.5"
   },
   "devDependencies": {
