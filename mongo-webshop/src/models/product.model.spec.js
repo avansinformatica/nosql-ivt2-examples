@@ -4,7 +4,7 @@ const expect = chai.expect
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
-const Product = require('./product.model')
+const Product = require('./product.model')() // note we need to call the model caching function
 
 
 describe('product model', function() {

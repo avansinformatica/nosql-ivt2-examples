@@ -1,11 +1,18 @@
+require('dotenv').config()
 const mongoose = require('mongoose')
 
-const User = require('./src/models/user.model')
-const Product = require('./src/models/product.model')
+const User = require('./src/models/user.model')() // note we need to call the model caching function
+const Product = require('./src/models/product.model')() // note we need to call the model caching function
 
 // open a connection to the test database (don't use production database!)
 before(function(done) {
-    mongoose.connect('mongodb://localhost:27017/webshoptest', {useNewUrlParser: true, useUnifiedTopology: true })
+    const options = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+    }
+
+    mongoose.connect(`${process.env.MONGO_URL}/${process.env.TEST_DB}`, options)
     .then(() => {console.log('connection to test DB established')})
     .then(() => done())
     .catch(err => done(err))

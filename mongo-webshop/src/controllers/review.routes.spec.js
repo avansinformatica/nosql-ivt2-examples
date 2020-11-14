@@ -3,8 +3,8 @@ const expect = chai.expect
 
 const requester = require('../../requester.spec')
 
-const User = require('../models/user.model')
-const Product = require('../models/product.model')
+const User = require('../models/user.model')() // note we need to call the model caching function
+const Product = require('../models/product.model')() // note we need to call the model caching function
 
 describe('review endpoints', function() {
     describe('integration tests', function() {

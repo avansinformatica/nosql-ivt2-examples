@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const getModel = require('./model_cache')
+
 const UserSchema = new Schema({
     // a user needs to have a name
     name: {
@@ -12,7 +14,7 @@ const UserSchema = new Schema({
     // a list of products this user bought is kept
     bought: [{
         type: Schema.Types.ObjectId,
-        ref: 'product',
+        ref: 'Product',
         default: []
     }]
 });
@@ -23,7 +25,7 @@ const UserSchema = new Schema({
 // use 'next' to indicate that mongoose can go to the next middleware
 UserSchema.pre('remove', function(next) {
     // include the product model here to avoid cyclic inclusion
-    const Product = mongoose.model('product');
+    const Product = mongoose.model('Product');
 
     // don't iterate here! we want to use mongo operators!
     // this makes sure the code executes inside mongo
@@ -32,7 +34,7 @@ UserSchema.pre('remove', function(next) {
 });
 
 // create the user model
-const User = mongoose.model('user', UserSchema);
+// const User = mongoose.model('user', UserSchema);
 
 // export the user model
-module.exports = User;
+module.exports = getModel('User', UserSchema);

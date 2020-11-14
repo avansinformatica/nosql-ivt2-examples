@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const getModel = require('./model_cache')
+
 // we use the review schema in the product schema
 const ReviewSchema = require('./review.schema');
 
@@ -31,19 +33,19 @@ const ProductSchema = new Schema({
 ProductSchema.virtual('rating').get(function () {
     // if there are no reviews we give back a message
     if(this.reviews.length === 0) {
-        return "no rating";
+        return "no rating"
     } else {
         // computes the average rating
-        let sum = 0;
+        let sum = 0
         for(let review of this.reviews) {
-            sum += review.rating;
+            sum += review.rating
         }
-        return sum / this.reviews.length;
+        return sum / this.reviews.length
     }
 })
 
 // create the product model
-Product = mongoose.model('product', ProductSchema);
+// Product = mongoose.model('Product', ProductSchema);
 
 // export the product model
-module.exports = Product;
+module.exports = getModel('Product', ProductSchema)

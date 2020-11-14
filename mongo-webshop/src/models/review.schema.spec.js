@@ -4,8 +4,8 @@ const expect = chai.expect
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
-const User = require('./user.model')
-const Product = require('./product.model')
+const User = require('./user.model')() // note we need to call the model caching function
+const Product = require('./product.model')() // note we need to call the model caching function
 
 
 describe('review schema', function() {

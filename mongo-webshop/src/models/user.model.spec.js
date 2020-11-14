@@ -4,7 +4,7 @@ const expect = chai.expect
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 
-const User = require('./user.model')
+const User = require('./user.model')() // note we need to call the model caching function
 
 describe('user model', function() {
     it('should reject a missing user name', async function() {

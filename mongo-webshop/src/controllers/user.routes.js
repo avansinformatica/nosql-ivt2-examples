@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const User = require('../models/user.model')
+const User = require('../models/user.model')() // note we need to call the model caching function
 
 // create a user on a post request
 router.post('/', async function(req, res) {

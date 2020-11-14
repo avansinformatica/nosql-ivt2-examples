@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const User = require('../models/user.model')
-const Product = require('../models/product.model')
+const User = require('../models/user.model')() // note we need to call the model caching function
+const Product = require('../models/product.model')() // note we need to call the model caching function
 
 
 // create a new product
