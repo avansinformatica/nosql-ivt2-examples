@@ -1,15 +1,7 @@
-const express = require('express')
-const router = express.Router()
-
-const registerCrud = require('./crud')
-
-const User = require('../models/user.model')() // note we need to call the model caching function
 const Product = require('../models/product.model')() // note we need to call the model caching function
+const User = require('../models/user.model')() // note we need to call the model caching function
 
-registerCrud(router, Product)
-
-// purchase a product
-router.post('/:id/purchase', async function(req, res) {
+async function purchase(req, res) {
     const product = await Product.findById(req.params.id)
 
     if(!product) {
@@ -29,6 +21,8 @@ router.post('/:id/purchase', async function(req, res) {
     })
 
     res.status(201).end()
-})
+}
 
-module.exports = router
+module.exports = {
+    purchase,
+}

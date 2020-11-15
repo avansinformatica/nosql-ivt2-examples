@@ -9,9 +9,9 @@ app.use(express.json())
 // use morgan for logging
 app.use(morgan('dev'))
 
-const userRoutes = require('./controllers/user.routes')
-const productRoutes = require('./controllers/product.routes')
-const reviewRoutes = require('./controllers/review.routes')
+const userRoutes = require('./routes/user.routes')
+const productRoutes = require('./routes/product.routes')
+const reviewRoutes = require('./routes/review.routes')
 
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)

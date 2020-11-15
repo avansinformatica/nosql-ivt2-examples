@@ -1,53 +1,59 @@
-// this registers all basic CRUD endpoints on a schema
+// this contains all basic CRUD endpoints on a schema
 // the schema is supplied by injection
-function registerCrud(router, model) {
-    router.post('/', async function(req, res, next) {
+class CrudController {
+    constructor(model) {
+        this.model = model
+    }
+
+    // we HAVE to use lambda functions here, as they have
+    // lexical scope for 'this'
+    create = async (req, res, next) => {
         try {
-            const entity = new model(req.body)
+            const entity = new this.model(req.body)
             await entity.save()
             res.status(201).json({id: entity.id})
         } catch (err) {
             next(err)
         }
-    })
+    }
 
-    router.get('/', async function(req, res, next) {
+    getAll = async (req, res, next) => {
         try {
-            const entities = await model.find()
+            const entities = await this.model.find()
             res.status(200).send(entities)
         } catch (err) {
             next(err)
         }
-    })
+    }
 
-    router.get('/:id', async function(req, res, next) {
+    getOne = async (req, res, next) => {
         try {
-            const entity = await model.findById(req.params.id)
+            const entity = await this.model.findById(req.params.id)
             res.status(200).send(entity)
         } catch (err) {
             next(err)
         }
-    })
+    }
 
-    router.put('/:id', async function(req, res, next) {
+    update = async (req, res, next) => {
         try {
-            await model.findByIdAndUpdate(req.params.id, req.body)
+            await this.model.findByIdAndUpdate(req.params.id, req.body)
             res.status(204).end()
         } catch (err) {
             next(err)
         }
-    })
+    }
 
-    router.delete('/:id', async function(req, res, next) {
+    delete = async (req, res, next) => {
         try {
             // this happens in two steps to make mongoose middleware run
-            const entity = await model.findById(req.params.id)
+            const entity = await this.model.findById(req.params.id)
             await entity.delete()
             res.status(204).end()
         } catch(err) {
             next(err)
         }
-    })
+    }
 }
 
-module.exports = registerCrud
+module.exports = CrudController
