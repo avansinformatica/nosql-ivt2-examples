@@ -1,4 +1,11 @@
 const express = require('express')
+
+// this catches an exception in a route handler and calls next with it,
+// so express' error middleware can deal with it
+// saves us a try catch in each route handler
+// note: this will be standard in express 5.0, to be released soon
+require('express-async-errors')
+
 const app = express()
 
 const cors = require('cors')
@@ -27,6 +34,8 @@ const userRoutes = require('./routes/user.routes')
 const productRoutes = require('./routes/product.routes')
 const reviewRoutes = require('./routes/review.routes')
 
+const errors = require('./errors')
+
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/', reviewRoutes)
@@ -36,21 +45,13 @@ app.use('*', function(_, res) {
     res.status(404).end()
 })
 
-// catch all error response
+// error responses
 app.use('*', function(err, req, res, next) {
     console.error(`${err.name}: ${err.message}`)
     next(err)
 })
 
-app.use('*', function(err, req, res, next) {
-    if (err.name === 'ValidationError') {
-        res.status(400).json({
-            message: 'please supply valid information'
-        })
-    } else {
-        next(err)
-    }
-})
+app.use('*', errors.handlers)
 
 app.use('*', function(err, req, res, next) {
     res.status(500).json({

@@ -1,4 +1,6 @@
+// reads the .env file and stores it as environment variables, use for config
 require('dotenv').config()
+
 const mongoose = require('mongoose')
 
 const app = require('./src/app')

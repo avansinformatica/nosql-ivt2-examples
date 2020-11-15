@@ -1,4 +1,6 @@
+// reads the .env file and stores it as environment variables, use for config
 require('dotenv').config()
+
 const mongoose = require('mongoose')
 
 const User = require('./src/models/user.model')() // note we need to call the model caching function

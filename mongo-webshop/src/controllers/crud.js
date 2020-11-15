@@ -1,4 +1,7 @@
 // this contains all basic CRUD endpoints on a schema
+
+const errors = require("../errors")
+
 // the schema is supplied by injection
 class CrudController {
     constructor(model) {
@@ -8,51 +11,31 @@ class CrudController {
     // we HAVE to use lambda functions here, as they have
     // lexical scope for 'this'
     create = async (req, res, next) => {
-        try {
-            const entity = new this.model(req.body)
-            await entity.save()
-            res.status(201).json({id: entity.id})
-        } catch (err) {
-            next(err)
-        }
+        const entity = new this.model(req.body)
+        await entity.save()
+        res.status(201).json({id: entity.id})
     }
 
     getAll = async (req, res, next) => {
-        try {
-            const entities = await this.model.find()
-            res.status(200).send(entities)
-        } catch (err) {
-            next(err)
-        }
+        const entities = await this.model.find()
+        res.status(200).send(entities)
     }
 
     getOne = async (req, res, next) => {
-        try {
-            const entity = await this.model.findById(req.params.id)
-            res.status(200).send(entity)
-        } catch (err) {
-            next(err)
-        }
+        const entity = await this.model.findById(req.params.id)
+        res.status(200).send(entity)
     }
 
     update = async (req, res, next) => {
-        try {
-            await this.model.findByIdAndUpdate(req.params.id, req.body)
-            res.status(204).end()
-        } catch (err) {
-            next(err)
-        }
+        await this.model.findByIdAndUpdate(req.params.id, req.body)
+        res.status(204).end()
     }
 
     delete = async (req, res, next) => {
-        try {
-            // this happens in two steps to make mongoose middleware run
-            const entity = await this.model.findById(req.params.id)
-            await entity.delete()
-            res.status(204).end()
-        } catch(err) {
-            next(err)
-        }
+        // this happens in two steps to make mongoose middleware run
+        const entity = await this.model.findById(req.params.id)
+        await entity.delete()
+        res.status(204).end()
     }
 }
 
