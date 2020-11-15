@@ -1,10 +1,24 @@
 const express = require('express')
 const app = express()
 
+const cors = require('cors')
+const helmet = require('helmet')
+
 const morgan = require('morgan')
 
 // parse json body of incoming request
 app.use(express.json())
+
+// enable CORS (cross origin resourse sharing)
+// you don't need it for this example, but you will if you host a frontend
+// on a different origin (url)
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+app.use(cors())
+
+// not the topic of this example, but good to be aware of security issues
+// helmet sets headers to avoid common security risks
+// https://expressjs.com/en/advanced/best-practice-security.html
+app.use(helmet())
 
 // use morgan for logging
 app.use(morgan('dev'))
