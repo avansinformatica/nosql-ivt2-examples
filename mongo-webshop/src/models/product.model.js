@@ -44,8 +44,5 @@ ProductSchema.virtual('rating').get(function () {
     }
 })
 
-// create the product model
-// Product = mongoose.model('Product', ProductSchema);
-
-// export the product model
+// export the product model through a caching function
 module.exports = getModel('Product', ProductSchema)

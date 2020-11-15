@@ -32,7 +32,7 @@ describe('review endpoints', function() {
 
             const res = await requester.post(`/product/${testProduct.id}/review`).send(testReview)
     
-            expect(res).to.have.status(200)
+            expect(res).to.have.status(201)
     
             const product = await Product.findById(testProduct.id)
             expect(product).to.have.property('name', testProduct.name)
@@ -76,7 +76,7 @@ describe('review endpoints', function() {
             expect(productBefore).to.have.property('reviews').of.length(1)
     
             const res = await requester.delete(`/user/${testUser.id}`)
-            expect(res).to.have.status(200)
+            expect(res).to.have.status(204)
     
             const productAfter = await Product.findById(testProduct.id)
             expect(productAfter).to.have.property('reviews').to.be.empty

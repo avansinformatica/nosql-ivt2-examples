@@ -14,17 +14,17 @@ describe('user journeys', function() {
             price: 259
         }
         res = await requester.post('/product').send(testProduct)
-        expect(res).to.have.status(200)
+        expect(res).to.have.status(201)
         testProduct.id = res.body.id
 
         const testUser = {name: 'Joe'}
 
         res = await requester.post('/user').send(testUser)
-        expect(res).to.have.status(200)
+        expect(res).to.have.status(201)
         testUser.id = res.body.id
 
         res = await requester.post(`/product/${testProduct.id}/purchase`).send({user: testUser.name})
-        expect(res).to.have.status(200)
+        expect(res).to.have.status(201)
 
         const testReview = {
             user: testUser.name,
@@ -32,7 +32,7 @@ describe('user journeys', function() {
             text: 'Pretty average camera'
         }
         res = await requester.post(`/product/${testProduct.id}/review`).send(testReview)
-        expect(res).to.have.status(200)
+        expect(res).to.have.status(201)
 
         res = await requester.get(`/product/${testProduct.id}`)
         expect(res).to.have.status(200)

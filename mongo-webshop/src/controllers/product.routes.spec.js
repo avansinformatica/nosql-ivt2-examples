@@ -16,7 +16,7 @@ describe('product endpoints', function() {
 
             const res = await requester.post('/product').send(testProduct)
 
-            expect(res).to.have.status(200)
+            expect(res).to.have.status(201)
             expect(res.body).to.have.property('id')
     
             const product = await Product.findOne({name: testProduct.name})
@@ -37,7 +37,7 @@ describe('product endpoints', function() {
                 .post('/product')
                 .send(testProduct)
                 .then(res => {
-                    expect(res).to.have.status(200)
+                    expect(res).to.have.status(201)
                     expect(res.body).to.have.property('id')
                     return Product.findOne({name: testProduct.name})
                 })
@@ -49,10 +49,10 @@ describe('product endpoints', function() {
                 })
         })
     
-        it('(POST /product) should not create a product with missing price', async function() {
+        it('(POST /product) should not create a product with missing name', async function() {
             const testProduct = {
                 description: 'A cool camera without a name',
-                price: 129
+                price: 129,
             }
     
             const res = await requester.post('/product').send(testProduct)
@@ -73,7 +73,7 @@ describe('product endpoints', function() {
             }
 
             const res1 = await requester.post('/product').send(testProduct)
-            expect(res1).to.have.status(200)
+            expect(res1).to.have.status(201)
             expect(res1.body).to.have.property('id')
 
             const id = res1.body.id

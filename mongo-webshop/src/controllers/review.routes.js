@@ -27,7 +27,7 @@ router.post('/product/:id/review', async function(req, res) {
             }
         }, {runValidators: true})
 
-        res.status(200).end()
+        res.status(201).end()
     } catch {
         res.status(400).end()
     }

@@ -12,7 +12,7 @@ const ReviewSchema = new Schema({
         required: [true, 'A rating is required.'],
         validate: {
             validator: (rating) => {
-                return Number.isInteger(rating) && 0<= rating && rating <= 5;
+                return Number.isInteger(rating) && 0 <= rating && rating <= 5;
             },
             message: 'A rating can only be 1, 2, 3, 4 or 5 stars.'
         }

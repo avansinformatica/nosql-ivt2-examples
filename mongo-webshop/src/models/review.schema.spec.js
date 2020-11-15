@@ -20,41 +20,43 @@ describe('review schema', function() {
         user['id'] = savedUser._id
     })
 
-    it('should reject a rating of 3.5', async function() {
-        const testProduct = {
-            name: 'Camera X120',
-            description: 'A cool camera',
-            price: 259,
-            reviews: [
-                {
-                    rating: 3.5,
+    describe('unit tests', function() {
+        it('should reject a rating of 3.5', async function() {
+            const testProduct = {
+                name: 'Camera X120',
+                description: 'A cool camera',
+                price: 259,
+                reviews: [
+                    {
+                        rating: 3.5,
+                        text: 'Pretty average camera',
+                        user: user.id
+                    }
+                ]
+            }
+    
+            await expect(new Product(testProduct).save()).to.be.rejectedWith(Error)
+        })
+    
+        it('should compute an average rating of a product', async function() {
+            const testProduct = new Product({
+                name: 'Camera X120',
+                description: 'A cool camera',
+                price: 259,
+                reviews: [{
+                    rating: 4,
                     text: 'Pretty average camera',
                     user: user.id
-                }
-            ]
-        }
-
-        await expect(new Product(testProduct).save()).to.be.rejectedWith(Error)
-    })
-
-    it('should compute an average rating of a product', async function() {
-        const testProduct = new Product({
-            name: 'Camera X120',
-            description: 'A cool camera',
-            price: 259,
-            reviews: [{
-                rating: 4,
-                text: 'Pretty average camera',
-                user: user.id
-            }, {
-                rating: 3,
-                text: 'Changed my mind for the worse',
-                user: user.id
-            }]
-        })
-
-        await testProduct.save()
+                }, {
+                    rating: 3,
+                    text: 'Changed my mind for the worse',
+                    user: user.id
+                }]
+            })
     
-        expect(testProduct).to.have.property('rating', 3.5)
+            await testProduct.save()
+        
+            expect(testProduct).to.have.property('rating', 3.5)
+        })
     })
 })

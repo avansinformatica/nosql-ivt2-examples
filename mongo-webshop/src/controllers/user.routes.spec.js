@@ -12,7 +12,7 @@ describe('user endpoints', function() {
             const testName = 'Joe'
     
             const res = await requester.post('/user').send({name: testName})
-            expect(res).to.have.status(200)
+            expect(res).to.have.status(201)
             expect(res.body).to.have.property('id')
     
             const user = await User.findOne({name: testName})
@@ -71,7 +71,7 @@ describe('user endpoints', function() {
     
             const res = await requester.delete(`/user/${testUser.id}`)
     
-            expect(res).to.have.status(200)
+            expect(res).to.have.status(204)
     
             const user = await User.findOne({name: testUser.name})
             expect(user).to.be.null
@@ -88,11 +88,11 @@ describe('user endpoints', function() {
             }
 
             const res1 = await requester.post('/user').send(testUserA)
-            expect(res1).to.have.status(200)
+            expect(res1).to.have.status(201)
             expect(res1.body).to.have.property('id')
             testUserA.id = res1.body.id
             const res2 = await requester.post('/user').send(testUserB)
-            expect(res2).to.have.status(200)
+            expect(res2).to.have.status(201)
             expect(res2.body).to.have.property('id')
             testUserB.id = res2.body.id
 
