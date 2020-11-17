@@ -5,16 +5,14 @@ const mongoose = require('mongoose')
 
 const app = require('./src/app')
 
-// since app inherits from Event Emitter, we can use this to get the app started
-// after the database is connected
-app.on('databaseConnected', function() {
-    const port = process.env.PORT
+// the order of starting the app and connecting to the database does not matter
+// since mongoose buffers queries till there is a connection
 
-    app.listen(port, () => {
-        console.log(`server is listening on port ${port}`)
-    })
+// start the app
+const port = process.env.PORT
+app.listen(port, () => {
+    console.log(`server is listening on port ${port}`)
 })
-
 
 // connect to the database
 const options = {
