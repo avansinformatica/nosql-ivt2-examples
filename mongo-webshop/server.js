@@ -26,9 +26,6 @@ const options = {
 mongoose.connect(`${process.env.MONGO_URL}/${process.env.PROD_DB}`, options)
 .then(() => {
     console.log('MongoDB connection established')
-
-    // fire the event that the app is ready to listen
-    app.emit('databaseConnected')
 })
 .catch(err => {
     console.log('MongoDB connection failed')
