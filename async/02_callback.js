@@ -16,6 +16,7 @@ db.findUserCallback('Alexander', user => {
         db.findUserCallback(firstFriend.friendsWith, secondFriend => {
             
             // but this indentation is just NASTY :(
+            // this is callback HELL!
             console.log('done! we found the two-deep friend!')
             console.log(secondFriend)
         })

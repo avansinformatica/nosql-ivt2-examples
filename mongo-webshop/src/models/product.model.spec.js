@@ -16,7 +16,8 @@ describe('product model', function() {
                 price: -129
             }
     
-            await expect(new Product(testProduct).save()).to.be.rejectedWith(Error)
+            // use validate and not save to make it a real unit test (we don't require a db this way)
+            await expect(new Product(testProduct).validate()).to.be.rejectedWith(Error)
         })
     
         it('should reject a missing price', async function() {
@@ -25,7 +26,7 @@ describe('product model', function() {
                 description: 'A cool camera'
             }
     
-            await expect(new Product(testProduct).save()).to.be.rejectedWith(Error)
+            await expect(new Product(testProduct).validate()).to.be.rejectedWith(Error)
         })
     })
 })

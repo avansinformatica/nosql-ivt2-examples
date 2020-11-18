@@ -34,6 +34,14 @@ before(() => {
     console.log('beforeAll: runs once before all tests')
 })
 
+afterEach(() => {
+    console.log('afterEach: runs again after each test')
+})
+
+after(() => {
+    console.log('afterAll: runs once after all tests')
+})
+
 describe('grouping some tests together', () => {
     beforeEach(() => {
         console.log('only before each of the grouped tests')
@@ -50,10 +58,20 @@ xit('this test is disabled and pending', () => {
 
 it('this test is also pending') // because no function is passed as argument
 
-// it.only('run just a single test', () => {
-//     console.log('useful when working on this test')
-// })
+it.only('run just a single test', () => {
+    console.log('useful when working on this test')
+})
 
-// it.only('another to work on', () => {
-//     console.log('or when working on several at the same time')
-// })
+it.only('another to work on', () => {
+    console.log('or when working on several at the same time')
+})
+
+describe.only('only run group of tests', () => {
+    beforeEach(() => {
+        console.log('only before each of the grouped tests')
+    })
+
+    it('first only in the group', () => {})
+
+    it('second only in the group', () => {})
+})
