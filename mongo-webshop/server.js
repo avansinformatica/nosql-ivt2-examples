@@ -1,9 +1,7 @@
 // reads the .env file and stores it as environment variables, use for config
 require('dotenv').config()
 
-const mongoose = require('mongoose')
-
-const mongooseConnect = require('./connect')
+const connect = require('./connect')
 
 const app = require('./src/app')
 
@@ -16,5 +14,6 @@ app.listen(port, () => {
     console.log(`server is listening on port ${port}`)
 })
 
-// connect to the database
-mongooseConnect(process.env.PROD_DB)
+// connect to the databases
+connect.mongo(process.env.MONGO_PROD_DB)
+connect.neo(process.env.NEO4J_PROD_DB)

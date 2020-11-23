@@ -1,6 +1,8 @@
 const Product = require('../models/product.model')() // note we need to call the model caching function
 const User = require('../models/user.model')() // note we need to call the model caching function
 
+const neo = require('../../neo')
+
 const errors = require('../errors')
 
 async function purchase(req, res) {
@@ -14,11 +16,27 @@ async function purchase(req, res) {
         throw new errors.EntityNotFoundError('User is required to purchase a product')
     }
 
-    await User.updateOne({name: req.body.user}, {
-        $push: {
-            bought: product._id
-        }
-    })
+    const user = await User.findOne({name: req.body.user})
+    
+    user.bought.push(product._id)
+
+    await user.save()
+    // , {
+    //     $push: {
+    //         bought: product._id
+    //     }
+    // })
+
+    try {
+        const session = neo.session()
+        await session.run(neo.purchase, {
+            productId: product._id.toString(),
+            userId: user._id.toString(),
+        })
+        session.close()
+    } catch (err) {
+        console.log(err)
+    }
 
     res.status(201).end()
 }
