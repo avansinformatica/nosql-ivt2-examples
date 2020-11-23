@@ -36,6 +36,7 @@ describe('review endpoints', function() {
     
             const product = await Product.findById(testProduct.id)
             expect(product).to.have.property('name', testProduct.name)
+            expect(product).to.have.property('rating', testReview.rating)
             expect(product).to.have.property('reviews').of.length(1)
             const review = product.reviews[0]
             expect(review).to.have.property('rating', testReview.rating)

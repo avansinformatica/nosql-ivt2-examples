@@ -25,6 +25,10 @@ const ProductSchema = new Schema({
         type: [ReviewSchema],
         default: []
     }
+}, {
+    // include virtuals when serializing the schema to an object or JSON
+    toObject: {virtuals: true},
+    toJSON: {virtuals: true},
 });
 
 // the rating of the product is a virtual type
