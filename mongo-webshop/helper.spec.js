@@ -15,6 +15,8 @@ connect.neo(process.env.NEO4J_TEST_DB)
 beforeEach(async () => {
     // drop both collections before each test
     await Promise.all([User.deleteMany(), Product.deleteMany()])
+
+    // clear neo db before each test
     const session = neo.session()
     await session.run(neo.dropAll)
     await session.close()
