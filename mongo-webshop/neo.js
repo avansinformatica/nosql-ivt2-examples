@@ -25,6 +25,6 @@ module.exports = {
     recommendReviewed: 'MATCH (usr:User {id:$userId})-[:BOUGHT]->(:Product)<-[review:REVIEWED]-(reviewer:User) WHERE review.rating >= 4 WITH DISTINCT reviewer, usr MATCH (reviewer)-[review:REVIEWED]->(product:Product) WHERE review.rating >= 4 AND NOT (usr)-[:BOUGHT]->(product) RETURN DISTINCT product',
     // recommend other products of users that have bought the same product as you
     recommendSimilar: 'MATCH (usr:User {id:$userId})-[:BOUGHT*2]-(other:User) WITH DISTINCT usr, other MATCH (other)-[:BOUGHT]->(product:Product) WHERE NOT (usr)-[:BOUGHT]->(product) RETURN DISTINCT product',
-    // recommend other products of users that have bought at least n the same products as you
-    recommendSimilarTwo: 'MATCH (usr:User {id:$userId})-[:BOUGHT]->(product:Product)<-[:BOUGHT]-(other:User) WITH usr, other, count(DISTINCT product) as productCount WHERE productCount >= $numSame MATCH (other)-[:BOUGHT]->(product:Product) WHERE NOT (usr)-[:BOUGHT]->(product) RETURN product'
+    // recommend other products of users that have bought at least 2 the same products as you
+    recommendSimilarTwo: 'MATCH (usr:User {id:$userId})-[:BOUGHT]->(product:Product)<-[:BOUGHT]-(other:User) WITH usr, other, count(DISTINCT product) as productCount WHERE productCount >= 2 MATCH (other)-[:BOUGHT]->(product:Product) WHERE NOT (usr)-[:BOUGHT]->(product) RETURN product'
 }
