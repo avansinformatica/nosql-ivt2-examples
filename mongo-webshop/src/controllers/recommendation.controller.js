@@ -8,18 +8,14 @@ async function getRecommendations(query, req, res) {
     const result = await session.run(query, {
         userId: req.params.id,
     })
-    
-    const products = []
-    for (let record of result.records) {
-        products.push(record.get('product').properties.id)
-    }
-    
-    // or in a functional approach
-    // const products = result.records.map(record => record.get('product').properties.id)
+
+    // we only expect 1 row with results, containing an array of product ids in the field 'productIds'
+    // see the queries in neo.js for what is returned
+    const productIds = result.records[0].get('productIds')
     
     session.close()
     
-    const recommendations = await Product.find({_id: {$in: products}})
+    const recommendations = await Product.find({_id: {$in: productIds}})
     
     res.status(200).json(recommendations)
 }

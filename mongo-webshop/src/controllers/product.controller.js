@@ -19,6 +19,9 @@ async function purchase(req, res) {
 
     // add the product to the bought list of the user
     const user = await User.findOne({name: req.body.user})
+
+    // maybe not necessary any more now that we store it in neo?
+    // BEWARE: atomicity issues!
     user.bought.push(product._id)
     await user.save()
 
