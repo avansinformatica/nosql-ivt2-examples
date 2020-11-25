@@ -26,6 +26,7 @@
     "mongoose": "^5.10.14",
     "mongoose-autopopulate": "^0.12.3",
     "morgan": "^1.10.0",
+    "neo4j-driver": "^4.2.1",
     "nodemon": "^1.18.5"
   },
   "devDependencies": {

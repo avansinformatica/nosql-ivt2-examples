@@ -33,12 +33,14 @@ app.use(morgan('dev'))
 const userRoutes = require('./routes/user.routes')
 const productRoutes = require('./routes/product.routes')
 const reviewRoutes = require('./routes/review.routes')
+const recommendationRoutes = require('./routes/recommendation.routes')
 
 const errors = require('./errors')
 
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/', reviewRoutes)
+app.use('/', recommendationRoutes)
 
 // catch all not found response
 app.use('*', function(_, res) {
@@ -48,6 +50,7 @@ app.use('*', function(_, res) {
 // error responses
 app.use('*', function(err, req, res, next) {
     console.error(`${err.name}: ${err.message}`)
+    // console.error(err)
     next(err)
 })
 
