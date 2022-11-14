@@ -32,12 +32,12 @@ console.log(`and in the meantime we can STILL compute 1 + 1 = ${1+1}`)
 
 // Oh, and please please please DON'T do this
 // just pick a side and stick with it!
-async function runTest() {
+async function runTestWrong() {
     const user = await db.findUserAsync('Alexander')
 
     // ugh...
     db.findUserAsync(user.friendsWith)
-        .then(firstFriend => {
+        .then(async firstFriend => {
         
             // ugh...
             const secondFriend = await db.findUserAsync(firstFriend.friendsWith)
