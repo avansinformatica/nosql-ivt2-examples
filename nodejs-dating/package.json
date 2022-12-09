@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-hateoas-links": "^1.0.9",
     "mocha": "^5.2.0",
     "mongoose": "^5.3.13",
